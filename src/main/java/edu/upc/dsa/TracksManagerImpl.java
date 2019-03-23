@@ -1,5 +1,6 @@
 package edu.upc.dsa;
 
+import edu.upc.dsa.models.Album;
 import edu.upc.dsa.models.Track;
 
 import java.util.LinkedList;
@@ -88,5 +89,15 @@ public class TracksManagerImpl implements TracksManager {
         }
 
         return t;
+    }
+
+    @Override
+    public Album addAlbum(String id, String name, String singer, int year) {
+        Album album = new Album();
+        album.setId(id);
+        album.setName(name);
+        album.setSinger(singer);
+        album.setYear(year);
+        return album;
     }
 }
