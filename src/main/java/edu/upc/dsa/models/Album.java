@@ -17,12 +17,11 @@ public class Album {
 
     }
 
-    public Album(String id, String name, String singer, int year, List<Track> tracks) {
+    public Album(String id, String name, String singer, int year) {
         this.id = id;
         this.name = name;
         this.singer = singer;
         this.year = year;
-        this.tracks = tracks;
         this.tracks = new LinkedList<>();
     }
 
