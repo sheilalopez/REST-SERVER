@@ -4,11 +4,12 @@ import edu.upc.dsa.util.RandomUtils;
 
 public class Track {
 
-    String id;
-    String title;
-    String singer;
-    static int lastId;
+    //Attributes
+    private String id;
+    private String title;
+    private String singer;
 
+    //Constructors
     public Track() {
         this.id = RandomUtils.getId();
     }
@@ -19,14 +20,20 @@ public class Track {
         this.setTitle(title);
     }
 
+    //Methods
+    @Override
+    public String toString() {
+        return "Track [id="+id+", title=" + title + ", singer=" + singer +"]";
+    }
+
+    //Getters and Setters
     public String getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(String id) {
-        this.id=id;
+        this.id = id;
     }
-
 
     public String getTitle() {
         return title;
@@ -43,10 +50,4 @@ public class Track {
     public void setSinger(String singer) {
         this.singer = singer;
     }
-
-    @Override
-    public String toString() {
-        return "Track [id="+id+", title=" + title + ", singer=" + singer +"]";
-    }
-
 }
