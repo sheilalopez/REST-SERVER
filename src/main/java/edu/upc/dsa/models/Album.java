@@ -1,7 +1,6 @@
 package edu.upc.dsa.models;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class Album {
 
@@ -10,7 +9,7 @@ public class Album {
     private String name;
     private String singer;
     private int year;
-    private List<Track> tracks;
+    private LinkedList<Track> tracks;
 
     //Constructors
     public Album() {
@@ -63,11 +62,11 @@ public class Album {
         this.year = year;
     }
 
-    public List<Track> getTracks() {
+    public LinkedList<Track> getTracks() {
         return tracks;
     }
 
-    public void setTracks(List<Track> tracks) {
+    public void setTracks(LinkedList<Track> tracks) {
         this.tracks = tracks;
     }
 }
