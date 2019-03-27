@@ -1,5 +1,7 @@
 package edu.upc.dsa.models;
 
+import edu.upc.dsa.util.RandomUtils;
+
 import java.util.LinkedList;
 
 public class Album {
@@ -13,11 +15,11 @@ public class Album {
 
     //Constructors
     public Album() {
-
+        this.id = RandomUtils.getId();
     }
 
-    public Album(String id, String name, String singer, int year) {
-        this.id = id;
+    public Album(String name, String singer, int year) {
+        this();
         this.name = name;
         this.singer = singer;
         this.year = year;
