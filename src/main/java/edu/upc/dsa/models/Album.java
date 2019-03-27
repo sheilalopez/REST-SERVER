@@ -4,14 +4,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Album {
-    //attributes
-    String id;
-    String name;
-    String singer;
-    int year;
-    List<Track> tracks;
 
-    //constructor
+    //Attributes
+    private String id;
+    private String name;
+    private String singer;
+    private int year;
+    private List<Track> tracks;
+
+    //Constructors
     public Album() {
 
     }
@@ -25,8 +26,12 @@ public class Album {
         this.tracks = new LinkedList<>();
     }
 
-    //methods
+    //Methods
+    public void addTrack(Track track) {
+        this.tracks.add(track);
+    }
 
+    //Getters and Setters
     public String getId() {
         return id;
     }
