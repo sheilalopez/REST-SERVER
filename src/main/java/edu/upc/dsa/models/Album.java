@@ -2,7 +2,7 @@ package edu.upc.dsa.models;
 
 import edu.upc.dsa.util.RandomUtils;
 
-import java.util.LinkedList;
+import java.util.HashMap;
 
 public class Album {
 
@@ -11,7 +11,7 @@ public class Album {
     private String name;
     private String singer;
     private int year;
-    private LinkedList<Track> tracks;
+    private HashMap<String, Track> tracks;
 
     //Constructors
     public Album() {
@@ -23,12 +23,16 @@ public class Album {
         this.name = name;
         this.singer = singer;
         this.year = year;
-        this.tracks = new LinkedList<>();
+        this.tracks = new HashMap<>();
     }
 
     //Methods
     public void addTrack(Track track) {
-        this.tracks.add(track);
+        this.tracks.put(track.getId(), track);
+    }
+
+    public Track getTrackById(String trackId) {
+        return this.tracks.get(trackId);
     }
 
     //Getters and Setters
@@ -64,12 +68,11 @@ public class Album {
         this.year = year;
     }
 
-    public LinkedList<Track> getTracks() {
+    public HashMap<String, Track> getTracks() {
         return tracks;
     }
 
-    public void setTracks(LinkedList<Track> tracks) {
+    public void setTracks(HashMap<String, Track> tracks) {
         this.tracks = tracks;
     }
 }
-
