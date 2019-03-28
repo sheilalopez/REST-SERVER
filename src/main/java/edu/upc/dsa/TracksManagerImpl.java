@@ -3,101 +3,110 @@ package edu.upc.dsa;
 import edu.upc.dsa.models.Album;
 import edu.upc.dsa.models.Track;
 
-import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.List;
+
 import org.apache.log4j.Logger;
 
 public class TracksManagerImpl implements TracksManager {
-    private static TracksManager instance;
-    protected List<Track> tracks;
-    final static Logger logger = Logger.getLogger(TracksManagerImpl.class);
 
+    //Logger
+    private final static Logger logger = Logger.getLogger(TracksManagerImpl.class);
+
+    //Facade
+    private static TracksManager instance;
+    private HashMap<String, Album> albums;
+    private HashMap<String, Track> tracks;
+
+    //Private constructor
     private TracksManagerImpl() {
-        this.tracks = new LinkedList<>();
+        this.albums = new HashMap<>();
+        this.tracks = new HashMap<>();
     }
 
+    //getInstance Method
     public static TracksManager getInstance() {
-        if (instance==null) instance = new TracksManagerImpl();
+        if (instance == null) instance = new TracksManagerImpl();
         return instance;
     }
 
-    public int size() {
-        int ret = this.tracks.size();
-        logger.info("size " + ret);
-
-        return ret;
+    //Methods
+    @Override
+    public void addAlbum(String name, String singer, int year) {
+        Album album = new Album(name, singer, year);
+        this.albums.put(album.getId(), album);
+        logger.info("Album added");
     }
 
-    public Track addTrack(Track t) {
-        logger.info("new Track " + t);
-
-        this.tracks.add (t);
-        logger.info("new Track added");
-        return t;
-    }
-
-    public Track addTrack(String title, String singer) {
-        return this.addTrack(new Track(title, singer));
-    }
-
-    public Track getTrack(String id) {
-        logger.info("getTrack("+id+")");
-
-        for (Track t: this.tracks) {
-            if (t.getId().equals(id)) {
-                logger.info("getTrack("+id+"): "+t);
-
-                return t;
-            }
+    @Override
+    public void addTrack(String title, String singer, String idAlbum) throws AlbumNotFoundException {
+        Album album = this.albums.get(idAlbum);
+        if (album != null) {
+            Track track = new Track(title, singer);
+            album.addTrack(track);
+            this.tracks.put(track.getId(), track);
+            logger.info("Track added");
+        } else {
+            logger.info("Album not found");
+            throw new AlbumNotFoundException();
         }
-
-        logger.warn("not found " + id);
-        return null;
     }
 
-    public List<Track> findAll() {
+    @Override
+    public Track getTrack(String id) throws TrackNotFoundException {
+        Track track = this.tracks.get(id);
+        if (track != null) return track;
+        else throw new TrackNotFoundException();
+    }
+
+    @Override
+    public Album getAlbum(String id) throws AlbumNotFoundException {
+        Album album = this.albums.get(id);
+        if (album != null) return album;
+        else throw new AlbumNotFoundException();
+    }
+
+    @Override
+    public HashMap<String, Track> getTracks() {
         return this.tracks;
     }
 
     @Override
-    public void deleteTrack(String id) {
-
-        Track t = this.getTrack(id);
-        if (t==null) {
-            logger.warn("not found " + t);
-        }
-        else logger.info(t+" deleted ");
-
-        this.tracks.remove(t);
-
+    public HashMap<String, Album> getAlbums() {
+        return this.albums;
     }
 
     @Override
-    public Track updateTrack(Track p) {
-        Track t = this.getTrack(p.getId());
-
-        if (t!=null) {
-            logger.info(p+" rebut!!!! ");
-
-            t.setSinger(p.getSinger());
-            t.setTitle(p.getTitle());
-
-            logger.info(t+" updated ");
-        }
-        else {
-            logger.warn("not found "+p);
-        }
-
-        return t;
+    public void updateTrack(Track track) throws TrackNotFoundException {
+        this.getTrack(track.getId());
+        this.tracks.put(track.getId(), track);
     }
 
     @Override
-    public Album addAlbum(String id, String name, String singer, int year) {
-        Album album = new Album();
-        album.setId(id);
-        album.setName(name);
-        album.setSinger(singer);
-        album.setYear(year);
-        return album;
+    public void updateAlbum(Album album) throws AlbumNotFoundException {
+        this.getAlbum(album.getId());
+        this.albums.put(album.getId(), album);
+    }
+
+    @Override
+    public void deleteTrack(String id) throws TrackNotFoundException {
+        this.getTrack(id);
+        this.tracks.remove(id);
+    }
+
+    @Override
+    public void deleteAlbum(String id) throws AlbumNotFoundException {
+        this.getAlbum(id);
+        this.albums.remove(id);
+    }
+
+    @Override
+    public int numTracks() {
+        return this.tracks.size();
+    }
+
+    @Override
+    public int numAlbums() {
+        return this.albums.size();
     }
 }

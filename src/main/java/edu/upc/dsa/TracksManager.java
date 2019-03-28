@@ -4,6 +4,7 @@ import edu.upc.dsa.models.Album;
 import edu.upc.dsa.models.Author;
 import edu.upc.dsa.models.Track;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface TracksManager {
@@ -45,13 +46,13 @@ public interface TracksManager {
      * Get all tracks
      * @return list of tracks
      */
-    List<Track> getTracks();
+    HashMap<String, Track> getTracks();
 
     /**
      * Get all albums
      * @return list of albums
      */
-    List<Album> getAlbums();
+    HashMap<String, Album> getAlbums();
 
     /**
      * Update a track
