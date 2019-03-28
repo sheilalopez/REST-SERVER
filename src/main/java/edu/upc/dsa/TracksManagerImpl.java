@@ -3,7 +3,10 @@ package edu.upc.dsa;
 import edu.upc.dsa.models.Album;
 import edu.upc.dsa.models.Track;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -31,10 +34,11 @@ public class TracksManagerImpl implements TracksManager {
 
     //Methods
     @Override
-    public void addAlbum(String name, String singer, int year) {
+    public String addAlbum(String name, String singer, int year) {
         Album album = new Album(name, singer, year);
         this.albums.put(album.getId(), album);
         logger.info("Album added");
+        return album.getId();
     }
 
     @Override
@@ -61,13 +65,13 @@ public class TracksManagerImpl implements TracksManager {
     }
 
     @Override
-    public HashMap<String, Track> getTracks() {
-        return this.tracks;
+    public List<Track> getTracks() {
+        return new ArrayList<>(this.tracks.values());
     }
 
     @Override
-    public HashMap<String, Album> getAlbums() {
-        return this.albums;
+    public List<Album> getAlbums() {
+        return new ArrayList<>(this.albums.values());
     }
 
     @Override

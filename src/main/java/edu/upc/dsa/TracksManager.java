@@ -14,8 +14,9 @@ public interface TracksManager {
      * @param name album name
      * @param singer album singer
      * @param year album year
+     * @return album identifier
      */
-    void addAlbum(String name, String singer, int year);
+    String addAlbum(String name, String singer, int year);
 
     /**
      * Add a new edu.upc.dsa.models.Track
@@ -46,13 +47,13 @@ public interface TracksManager {
      * Get all tracks
      * @return list of tracks
      */
-    HashMap<String, Track> getTracks();
+    List<Track> getTracks();
 
     /**
      * Get all albums
      * @return list of albums
      */
-    HashMap<String, Album> getAlbums();
+    List<Album> getAlbums();
 
     /**
      * Update a track
